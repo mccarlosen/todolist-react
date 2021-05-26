@@ -104,6 +104,9 @@ module.exports = {
 					900: "#080808",
 				},
 			},
+			fontFamily: {
+				oswald: ["'Oswald'", "sans-serif"],
+			},
 		},
 	},
 	variants: {

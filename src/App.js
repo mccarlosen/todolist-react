@@ -67,7 +67,13 @@ function App(props) {
 			<section>
 				<div className="w-auto bg-color9-500 rounded-md shadow-md">
 					<div className="p-4">
-						<input onKeyDown={handleAddTodo} type="text" className="h-14 w-full bg-color1-700 text-color1-200 text-xl px-4 rounded" autoFocus placeholder="Insert you text" />
+						<input
+							onKeyDown={handleAddTodo}
+							type="text"
+							className="h-14 w-full text-color1-200 text-xl px-4 rounded bg-color6-600 transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-color1-400 focus:border-transparent"
+							autoFocus
+							placeholder="Insert you text"
+						/>
 					</div>
 					<TodoList todos={todos} handleStatus={handleStatus} handleToggleSelectAll={handleToggleSelectAll} handleClearAll={handleClearAll} isSelectedAll={isSelectedAll} />
 				</div>
