@@ -5,7 +5,26 @@ import logo from "./assets/logo.svg";
 
 function App(props) {
 	const [todos, setTodos] = React.useState(props.todos);
-	const [isSelectedAll, setIsSelectedAll] = React.useState(false);
+	const [hasSelected, setHasSelected] = React.useState(false);
+	const [todosFiltered, setTodosFiltered] = React.useState(todos);
+	const [tab, setTab] = React.useState(null);
+
+	React.useEffect(() => {
+		if (tab === null) {
+			setTodosFiltered(todos);
+		} else {
+			setTodosFiltered(todos.filter((todo) => todo.status === tab));
+		}
+	}, [todos, tab]);
+
+	const handleFilter = (filter) => {
+		setTab(filter);
+		if (filter === null) {
+			setTodosFiltered(todos);
+		} else {
+			setTodosFiltered(todos.filter((todo) => todo.status === filter));
+		}
+	};
 
 	const handleAddTodo = (e) => {
 		const value = e.target.value;
@@ -32,29 +51,18 @@ function App(props) {
 		checkSelectedAll(oldTodos);
 	};
 
-	const handleToggleSelectAll = (e) => {
-		const oldTodos = [...todos];
-		if (e.target.checked) {
-			oldTodos.map((todo) => (todo.status = true));
-		} else {
-			oldTodos.map((todo) => (todo.status = false));
-		}
-		setTodos(oldTodos);
-		checkSelectedAll(oldTodos);
-	};
-
 	const handleClearAll = () => {
 		const oldTodos = [...todos];
 		const newTodos = oldTodos.filter((todo) => todo.status !== true);
 		setTodos(newTodos);
-		setIsSelectedAll(false);
+		setHasSelected(false);
 	};
 
 	const checkSelectedAll = (todos) => {
-		if (todos.filter((todo) => todo.status).length === todos.length) {
-			setIsSelectedAll(true);
+		if (todos.filter((todo) => todo.status).length) {
+			setHasSelected(true);
 		} else {
-			setIsSelectedAll(false);
+			setHasSelected(false);
 		}
 	};
 
@@ -72,10 +80,18 @@ function App(props) {
 							type="text"
 							className="h-14 w-full text-color1-200 text-xl px-4 rounded bg-color6-600 transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-color1-400 focus:border-transparent"
 							autoFocus
-							placeholder="Insert you text"
+							placeholder="Enter your task"
 						/>
 					</div>
-					<TodoList todos={todos} handleStatus={handleStatus} handleToggleSelectAll={handleToggleSelectAll} handleClearAll={handleClearAll} isSelectedAll={isSelectedAll} />
+					<TodoList
+						todos={todos}
+						todosFiltered={todosFiltered}
+						handleStatus={handleStatus}
+						handleClearAll={handleClearAll}
+						handleFilter={handleFilter}
+						hasSelected={hasSelected}
+						tab={() => tab}
+					/>
 				</div>
 			</section>
 		</div>
