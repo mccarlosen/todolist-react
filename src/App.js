@@ -2,6 +2,8 @@ import React from "react";
 import TodoList from "./components/TodoList";
 import uuid from "uuid/v4";
 import logo from "./assets/logo.svg";
+import githubIcon from "./assets/github.svg";
+import codingIcon from "./assets/coding.svg";
 
 function App(props) {
 	const [todos, setTodos] = React.useState(props.todos);
@@ -69,7 +71,17 @@ function App(props) {
 	return (
 		<div className="max-w-xl w-full space-y-8">
 			<header className="flex flex-col items-center justify-center">
-				<img src={logo} className="h-20 mb-4" alt="logo" />
+				<a href="https://carlosmeneses.com" target="_blank" rel="noreferrer">
+					<img src={logo} className="h-20 mb-4" alt="logo" />
+				</a>
+				<div className="flex justify-around mb-6">
+					<a href="https://github.com/mccarlosen" target="_blank" rel="noreferrer" className="p-2">
+						<img src={githubIcon} alt="github" />
+					</a>
+					<a href="https://github.com/mccarlosen/todolist-react/tree/master" target="_blank" rel="noreferrer" className="p-2">
+						<img src={codingIcon} alt="coding" />
+					</a>
+				</div>
 				<h1 className="font-bold text-5xl text-color2-500 shadow-sm">ToDo List</h1>
 			</header>
 			<section>
